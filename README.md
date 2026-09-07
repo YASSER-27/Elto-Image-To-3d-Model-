@@ -64,6 +64,38 @@ Run the main application script:
 python ElTo.py
 ```
 
+#### elto_web [ 127.0.0.1:5732 ]
+
+## Running it 
+
+```
+cd elto_web
+pip install flask
+python run.py
+```
+
+#### What changed vs. the desktop version
+
+- **UI**: the Qt sidebar (import/crop/quality/decimate/smooth/generate/save)
+  is now a plain HTML/CSS/JS sidebar in `static/index.html` + `static/app.js`,
+  same layout, same colors, same options.
+- **3D viewer**: unchanged Three.js code, extracted verbatim from
+  `_build_viewer_html` / `_build_gltf_viewer_html`. The only edit: the 4
+  spots that called `bridge.saveFile(...)` through `QWebChannel` now trigger
+  a normal browser download instead — there's no Qt "Save As" dialog on the
+  web, so the browser's own download flow replaces it.
+- **Crop tool**: replaced with a smaller drag-to-select canvas cropper
+  (`static/crop.js`). It's simpler than the original `CropDialog` (no resize
+  handles on an existing rectangle — you draw a new one each time), but does
+  the same job.
+- **Generation pipeline**: `pipeline.py` is `EngineThread`/`_process_image`
+  with the exact same body, only the communication layer changed (Qt
+  signals → a small dict the Flask routes poll). The model loading, image
+  preprocessing, mesh extraction, decimate/smooth, and OBJ/GLB/GLTF export
+  logic is byte-for-byte the same.
+- **`meshCommand`** was dropped — checked the original code and it was never
+  actually called from any JS, only defined and unused.
+
 -Import an image by clicking "Import Image", dropping an image into the preview area, or pasting from clipboard (Ctrl + V).
 
 -Click "Edit" to crop or adjust the image if needed.
