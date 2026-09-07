@@ -48,14 +48,15 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 3. Install dependencies
+
 ```Bash
 pip install -r requirements.txt
 ```
 
 ### Usage
 Run the main application script:
+
 ```
-```Bash
 python ElTo.py
 ```
 
