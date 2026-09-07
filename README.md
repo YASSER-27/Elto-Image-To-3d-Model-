@@ -31,9 +31,6 @@ It features an integrated 3D viewport powered by Three.js, automatic background 
 
 ## Installation & Setup
 
-### Prerequisites
-Python 3.9 or higher and a CUDA-compatible GPU are recommended for optimal performance.
-
 ### 1. Clone the repository
 ```bash
 git clone [https://github.com/YASSER-27/Elto-Image-To-3d-Model.git](https://github.com/YASSER-27/Elto-Image-To-3d-Model.git)
