@@ -3,10 +3,12 @@
 
 # ElTo — Image to 3D Model Converter
 
+
 ElTo is a desktop application built with Python and PySide6 that converts 2D images into textured 3D models using AI (TripoSR). 
 
 It features an integrated 3D viewport powered by Three.js, automatic background removal, built-in mesh post-processing, and flexible export options.
 
+>Offline
 ---
 
 ## Features
