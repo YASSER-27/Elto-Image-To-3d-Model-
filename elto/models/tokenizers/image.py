@@ -1,30 +1,37 @@
 from dataclasses import dataclass
+import os
+import sys
 
 import torch
 import torch.nn as nn
 from einops import rearrange
-from huggingface_hub import hf_hub_download
 from transformers.models.vit.modeling_vit import ViTModel
 
 from ...utils import BaseModule
 
 
+def _local_dino_config_path() -> str:
+    if getattr(sys, "frozen", False):
+        base = sys._MEIPASS
+    else:
+        base = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base, "dino_vitb16_config.json")
+
+
 class DINOSingleImageTokenizer(BaseModule):
     @dataclass
     class Config(BaseModule.Config):
-        pretrained_model_name_or_path: str = "facebook/dino-vitb16"
         enable_gradient_checkpointing: bool = False
 
     cfg: Config
 
     def configure(self) -> None:
+        config_path = _local_dino_config_path()
+        if not os.path.isfile(config_path):
+            raise FileNotFoundError(f"find {config_path}")
+
         self.model: ViTModel = ViTModel(
-            ViTModel.config_class.from_pretrained(
-                hf_hub_download(
-                    repo_id=self.cfg.pretrained_model_name_or_path,
-                    filename="config.json",
-                )
-            )
+            ViTModel.config_class.from_pretrained(config_path)
         )
 
         if self.cfg.enable_gradient_checkpointing:
