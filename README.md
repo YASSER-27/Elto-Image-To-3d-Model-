@@ -52,7 +52,11 @@ source venv/bin/activate
 ```Bash
 pip install -r requirements.txt
 ```
-
+4. Download Model
+```Bash
+git lfs install
+git clone https://huggingface.co/stabilityai/TripoSR
+```
 ### Usage
 Run the main application script:
 
