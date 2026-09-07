@@ -111,5 +111,3 @@ python run.py
 | **.glb** | Binary format including vertex colors and textures. Ideal for web deployment and game engines. |
 | **.gltf** | JSON-based 3D structure file. Easy to parse and edit. |
 | **.obj** | Universal geometry format supported by Blender, Maya, 3ds Max, and other 3D software. |
-
-#### MIT License.
